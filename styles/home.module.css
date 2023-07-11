@@ -1,88 +1,120 @@
-.container{
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+.container {
+  margin-bottom: 14rem /* 224px */;
 }
 
-.main{
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.main {
+  margin-top: 2.5rem /* 40px */;
+  max-width: 100rem /* 1152px */;
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.mainWrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+.heroImage{
+  position: relative;
+  float: right;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.cardLayout{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+}
+
+.card {
+  justify-content: center;
+}
+
+.heading2{
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
+  color:var(--text-white-100)
+}
+
+/** Breakpoints:
+  sm: min-width: 640px;
+  md: min-width: 768px;
+  lg: min-width: 1024px;
+  xl: min-width: 1280px;
+  2xl: min-width: 1536px;
+**/
 
 @media (min-width: 640px) {
-  .title {
-    font-size: 3rem /* 48px */;
-    line-height: 1;
+  .container {
+    padding-left: 1rem /* 16px */;
+    padding-right: 1rem /* 16px */;
   }
 
-  .subTitle {
-    margin-top: 1.25rem;
-    max-width: 36rem;
+  .main {
+    margin-top: 3rem /* 48px */;
+    padding-left: 1.5rem /* 24px */;
+    padding-right: 1.5rem /* 24px */;
+  }
+  
+  .heroImage{
+    right: 20%%
   }
 
-  .buttonWrapper {
-    display: flex;
-    margin-top: 2rem;
+  .cardLayout{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/** md breakpoint **/
 @media (min-width: 768px) {
-  .title {
-    font-size: 3.75rem /* 60px */;
-    line-height: 1;
-  }
-
-  .subTitle {
-    margin-top: 1.25rem;
-  }
-
-  .button {
-    padding-top: 1rem /* 16px */;
-    padding-bottom: 1rem /* 16px */;
-    font-size: 1.125rem /* 18px */;
-    line-height: 1.75rem /* 28px */;
+  .container {
     padding-left: 2.5rem /* 40px */;
     padding-right: 2.5rem /* 40px */;
   }
+
+  .main {
+    margin-top: 4rem /* 64px */;
+  }
+
+  .heroImage{
+    right: 20%%
+  }
+
+  .cardLayout{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-/** lg breakpoint **/
 @media (min-width: 1024px) {
   .container {
-    text-align: left;
+    padding-left: 2.5rem /* 40px */;
+    padding-right: 2.5rem /* 40px */;
   }
-
-  .title {
-    font-size: 4.5rem /* 72px */;
-    line-height: 1;
+  .main {
+    margin-top: 5rem /* 80px */;
+    padding-left: 2rem /* 32px */;
+    padding-right: 2rem /* 32px */;
   }
-
-  .title2 {
-    padding-left: 0.5rem;
+  .heroImage{
+    right: 20%%
   }
-
-  .subTitle {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  .buttonWrapper {
-    justify-content: flex-start;
+  .cardLayout{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/** xl breakpoint **/
 @media (min-width: 1280px) {
-  .title2 {
-    display: inline;
+  .cardLayout{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 50px;
+    grid-auto-flow: dense;
   }
 }
