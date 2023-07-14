@@ -11,12 +11,14 @@ import styles from '../../styles/storedetail.module.css';
 
 interface StoreProps {
   coffeeStore: {
-    id: number;
-    name: string;
-    imgUrl: string;
-    websiteUrl: string;
-    address: string;
-    neighbourhood: string;
+    id: number
+    name: string
+    imgUrl: string
+    websiteUrl: string
+    location: {
+      address: string
+      cross_street: string
+    };
   }
 }
  
@@ -50,7 +52,7 @@ export async function getStaticPaths() {
 export default function CoffeeStore(props: StoreProps) {
   const router = useRouter();
 
-  const { address, name, neighbourhood, imgUrl } = props.coffeeStore;
+  const { location, name,  imgUrl } = props.coffeeStore;
 
   const handleUpvoteButton = () => {}
 
@@ -76,11 +78,11 @@ export default function CoffeeStore(props: StoreProps) {
         <div className={cls('glass', styles.col2)}>
           <div className={styles.iconWrapper}>
             <Image src={places} height={24} width={24} alt="Icon"/>
-            <p className={styles.text}>{address}</p>
+            <p className={styles.text}>{location.address}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image src={nearMe} height={24} width={24} alt="Icon"/>
-            <p className={styles.text}>{neighbourhood}</p>
+            <p className={styles.text}>{location.cross_street}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image src={star} height={24} width={24} alt="Icon"/>
