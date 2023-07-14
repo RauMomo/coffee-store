@@ -1,31 +1,38 @@
 import Banner from '@/components/banner';
 import Card from '@/components/card';
+import fetchCoffeeStores from '@/hooks/coffee-stores';
 import Head from 'next/head';
 import Image from 'next/image';
-import coffeeStoresData from '../data/coffee-stores.json';
 import Hero from '../public/assets/hero-image.png';
 import styles from '../styles/home.module.css';
 
-interface StoreProps{
+interface StoresProps{
   coffeeStores: {
-    id: number;
-    name: string;
-    imgUrl: string;
-    websiteUrl: string;
-    address: string;
-    neighbourhood: string;
+      fsq_id: string
+      categories: [],
+      chains: []
+      distance: number
+      geocodes: []
+      link: string
+      location: []
+      name: string
+      related_places: {}
+      timezone: string
   }[]
 }
 
-export function getStaticProps(context: any): any {
+export async function getStaticProps(context: any) {
+  const results = await fetchCoffeeStores();
+
+
   return {
     props: {
-      coffeeStores: coffeeStoresData
+      coffeeStores: results ?? []
     }
   }
 }
 
-export default function Home(props: StoreProps) {
+export default function Home(props: StoresProps) {
   console.log("props: ", props.coffeeStores);
   const handleOnBannerClick = () => {
     console.log("Hi");
@@ -33,7 +40,7 @@ export default function Home(props: StoreProps) {
   
 
   const coffeeStores = props.coffeeStores;
-  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -56,10 +63,10 @@ export default function Home(props: StoreProps) {
             return (
               <Card
                 name={coffeeStore.name}
-                imgUrl={coffeeStore.imgUrl}
-                href={`/coffee-store/${coffeeStore.id}`}
+                imgUrl={"https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"}
+                href={`/coffee-store/${coffeeStore.fsq_id}`}
                 className={styles.card}
-                key={index}
+                key={coffeeStore.fsq_id}
               />
             );
           })}
