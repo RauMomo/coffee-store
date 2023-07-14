@@ -33,8 +33,12 @@ export default async function fetchCoffeeStores() {
     if (images.length === 0) {
       return result;
     }
+
+    const neighborhood = result.location.cross_street;
+    const address = result.location.address;
+
     return {
-      ...result, imgUrl: images[index] 
+      ...result, imgUrl: images.length == 0 ? null : images[index], id: result.fsq_id, address: address, neighborhood: neighborhood
     }
   });
 }

@@ -9,17 +9,13 @@ import places from '../../public/assets/icons/places.svg';
 import star from '../../public/assets/icons/star.svg';
 import styles from '../../styles/storedetail.module.css';
 
-interface StoreProps {
-  coffeeStore: {
+export interface StoreProps {
     id: number
     name: string
     imgUrl: string
     websiteUrl: string
-    location: {
-      address: string
-      cross_street: string
-    };
-  }
+    address: string
+    neighborhood: string
 }
  
 
@@ -27,19 +23,18 @@ export async function getStaticProps(staticProps : any): Promise<any> {
   const params = staticProps.params;
   const coffeeStores = await fetchCoffeeStores();
   return {
-    props: {
-      coffeeStore: coffeeStores.find((store: { fsq_id: string }) => {
+    props: coffeeStores.find((store: { id: string }) => {
         console.log(store);
-        return store.fsq_id.toString() === params.id
-      },)}
+        return store.id.toString() === params.id
+      },)
   }
 }
 
 export async function getStaticPaths() {
   const coffeeStores = await fetchCoffeeStores();
-  const paths = coffeeStores.map((store: { fsq_id: string; }) => {
+  const paths = coffeeStores.map((store: { id: string; }) => {
     return {
-      params: { id: store.fsq_id.toString() }
+      params: { id: store.id.toString() }
     };
   });
 
@@ -52,7 +47,9 @@ export async function getStaticPaths() {
 export default function CoffeeStore(props: StoreProps) {
   const router = useRouter();
 
-  const { location, name,  imgUrl } = props.coffeeStore;
+  console.log(props);
+
+  const { address, neighborhood, name, imgUrl } = props;
 
   const handleUpvoteButton = () => {}
 
@@ -62,7 +59,7 @@ export default function CoffeeStore(props: StoreProps) {
   return (
     <div className={styles.layout}>
       <Head>
-        <title>{props.coffeeStore.name}</title>
+        <title>{name}</title>
       </Head>
       <div className={styles.container}> 
         <div className={styles.col1}>
@@ -78,11 +75,11 @@ export default function CoffeeStore(props: StoreProps) {
         <div className={cls('glass', styles.col2)}>
           <div className={styles.iconWrapper}>
             <Image src={places} height={24} width={24} alt="Icon"/>
-            <p className={styles.text}>{location.address}</p>
+            <p className={styles.text}>{address}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image src={nearMe} height={24} width={24} alt="Icon"/>
-            <p className={styles.text}>{location.cross_street}</p>
+            <p className={styles.text}>{neighborhood}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image src={star} height={24} width={24} alt="Icon"/>
